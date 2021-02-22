@@ -9,8 +9,8 @@ CCFLAGS=-std=c++11
 
 INC = -I $(CPP_COMMON)
 
-LIBS = -lOpenCL -lrt
-
+#LIBS = -lOpenCL -lrt
+LIBS = -lOpenCL
 # Change this variable to specify the device type
 # to the OpenCL device type of choice. You can also
 # edit the variable in the source.
