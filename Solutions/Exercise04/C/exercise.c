@@ -69,43 +69,34 @@ int main(int argc, char** argv){
         h_g[i] = rand() / (float)RAND_MAX;
     }
 
-    // Set up platform and GPU device
-
-    cl_uint numPlatforms;
-
-    // Find number of platforms
+    cl_uint   numPlatforms;
     err = clGetPlatformIDs(0, NULL, &numPlatforms);
     checkError(err, "Finding platforms");
-    if (numPlatforms == 0)
-    {
-        printf("Found 0 platforms!\n");
-        return EXIT_FAILURE;
+    if(numPlatforms == 0){
+        printf("Found 0 platforms\n");
+        return EXIT_SUCCESS;
     }
 
-    // Get all platforms
     cl_platform_id Platform[numPlatforms];
     err = clGetPlatformIDs(numPlatforms, Platform, NULL);
     checkError(err, "Getting platforms");
 
-    // Secure a GPU
-    for (i = 0; i < numPlatforms; i++)
-    {
+    for(i = 0; i < numPlatforms; i++){
         err = clGetDeviceIDs(Platform[i], DEVICE, 1, &device_id, NULL);
-        if (err == CL_SUCCESS)
-        {
+        if( err==CL_SUCCESS){
             break;
         }
     }
 
-    if (device_id == NULL)
-        checkError(err, "Getting device");
+    if(device_id==NULL){
+        checkError(err, "Finding a device");
+    }
 
     err = output_device_info(device_id);
-    checkError(err, "Outputting device info");
-  
-    // Create a compute context 
+    checkError(err, "Printing device output");
+
     context = clCreateContext(0, 1, &device_id, NULL, NULL, &err);
-    checkError(err, "Creating context");
+    checkError(context, "Creating context");
 
     commands = clCreateCommandQueue(context, device_id, 0, &err);
     checkError(err, "Creating command queue");

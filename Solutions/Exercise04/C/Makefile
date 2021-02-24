@@ -1,6 +1,6 @@
 
-ifndef CC
-	CC = gcc
+ifndef GCC
+	GCC = gcc
 endif
 
 CCFLAGS=-O3 -lm
@@ -26,7 +26,7 @@ endif
 CCFLAGS += -D DEVICE=$(DEVICE)
 
 vadd_chain: vadd_chain.c $(COMMON_DIR)/device_info.c
-	$(CC) $^ $(CCFLAGS) $(LIBS) -I $(COMMON_DIR) -o $@
+	$(GCC) $^ $(CCFLAGS) $(LIBS) -I $(COMMON_DIR) -o $@
 
 
 clean:
