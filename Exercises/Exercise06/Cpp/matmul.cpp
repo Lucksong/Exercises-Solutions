@@ -33,6 +33,15 @@ std::string kernelsource = "__kernel void mmul(                                 
 "   __global float* B,                                                  \n" \
 "   __global float* C)                                                  \n" \
 "{                                                                      \n" \
+"   int row = get_global_id(0); \n"\
+"   int col = get_global_id(1); \n"\
+"   float tmp = 0 ;             \n"\
+"   if ((row<N)&&(col<N)){      \n"\
+"   for(int i=0;i<N;i++){       \n"\
+"       tmp += (A[row*N+i] * B[i*N + col]);\n"\
+"   }\n"\
+"   C[row*N + col] = tmp;\n"\
+"    }\n"\
 "}                                                                      \n" \
 "\n";
 
